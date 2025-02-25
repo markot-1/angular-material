@@ -20,7 +20,18 @@ export class DashboardService {
     },
   ]);
 
-  addedWidgets = signal<Widget[]>([]);
+  addedWidgets = signal<Widget[]>([
+    {
+      id: 1,
+      label: 'Subscribers',
+      content: SubscribersComponent,
+    },
+    {
+      id: 2,
+      label: 'Views',
+      content: ViewsComponent,
+    },
+  ]);
 
   widgetsToAdd = computed(() => {
     const addedIds = this.addedWidgets().map(widget => widget.id);
