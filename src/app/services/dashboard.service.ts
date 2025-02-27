@@ -12,11 +12,19 @@ export class DashboardService {
       id: 1,
       label: 'Subscribers',
       content: SubscribersComponent,
+      rows: 1,
+      columns: 1,
+      backgroundColor: '#003f5c',
+      color: 'whitesmoke'
     },
     {
       id: 2,
       label: 'Views',
+      rows: 1,
+      columns: 1,
       content: ViewsComponent,
+      backgroundColor: '#003f5c',
+      color: 'whitesmoke'
     },
   ]);
 
@@ -25,13 +33,19 @@ export class DashboardService {
       id: 1,
       label: 'Subscribers',
       content: SubscribersComponent,
-      rows: 2,
-      columns: 2
+      rows: 1,
+      columns: 1,
+      backgroundColor: '#003f5c',
+      color: 'whitesmoke'
     },
     {
       id: 2,
       label: 'Views',
+      rows: 1,
+      columns: 1,
       content: ViewsComponent,
+      backgroundColor: '#003f5c',
+      color: 'whitesmoke'
     },
   ]);
 

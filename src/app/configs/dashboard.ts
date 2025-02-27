@@ -5,5 +5,7 @@ export interface Widget {
     label: string,
     content: Type<unknown>,
     rows?: number,
-    columns?: number
+    columns?: number,
+    backgroundColor?: string,
+    color?: string,
 }
