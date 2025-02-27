@@ -2,3 +2,22 @@
 @import '@angular/material/core/theming/all-theme'; 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.stat {
+    font-size: 24px;
+    padding: 2px 7px 0 0;
+}
+
+.text-green {
+    color: #01ab01;
+}
+
+.text-dim-gray {
+    color: #cbcbcb;
+} 

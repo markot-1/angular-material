@@ -2,6 +2,8 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Widget } from '../configs/dashboard';
 import { SubscribersComponent } from '../components/pages/dashboard/widgets/subscribers/subscribers.component';
 import { ViewsComponent } from '../components/pages/dashboard/widgets/views/views.component';
+import { WatchTimeComponent } from '../components/pages/dashboard/widgets/watch-time/watch-time.component';
+import { RevenueComponent } from '../components/pages/dashboard/widgets/revenue/revenue.component';
 
 @Injectable()
 export class DashboardService {
@@ -23,6 +25,24 @@ export class DashboardService {
       rows: 1,
       columns: 1,
       content: ViewsComponent,
+      backgroundColor: '#003f5c',
+      color: 'whitesmoke'
+    },
+    {
+      id: 3,
+      label: 'Watch Time',
+      rows: 1,
+      columns: 1,
+      content: WatchTimeComponent,
+      backgroundColor: '#003f5c',
+      color: 'whitesmoke'
+    },
+    {
+      id: 4,
+      label: 'Revenue',
+      rows: 1,
+      columns: 1,
+      content: RevenueComponent,
       backgroundColor: '#003f5c',
       color: 'whitesmoke'
     },
