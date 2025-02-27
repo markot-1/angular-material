@@ -76,4 +76,8 @@ export class DashboardService {
     [newWidgets[index], newWidgets[index-1]] = [{...newWidgets[index-1]}, {...newWidgets[index]}];
     this.addedWidgets.set(newWidgets);
   }
+
+  removeWidget(id: number) {
+    this.addedWidgets.set(this.addedWidgets().filter(widget => widget.id !== id));
+  }
 }
