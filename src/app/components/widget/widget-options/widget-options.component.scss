@@ -30,3 +30,17 @@
     right: 0;
 }
 
+.move-forward-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -5px;
+}
+
+.move-backward-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -5px;
+}
+

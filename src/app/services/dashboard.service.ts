@@ -52,4 +52,28 @@ export class DashboardService {
       this.addedWidgets.set(newWidgets);
     }
   }
+
+  moveWidgetToRight(id: number) {
+    const index = this.addedWidgets().findIndex(widget => widget.id === id);
+
+    if(index === this.addedWidgets().length -1) {
+      return;
+    }
+
+    const newWidgets = [...this.addedWidgets()]; 
+    [newWidgets[index], newWidgets[index+1]] = [{...newWidgets[index+1]}, {...newWidgets[index]}];
+    this.addedWidgets.set(newWidgets);
+  }
+
+  moveWidgetToLeft(id: number) {
+    const index = this.addedWidgets().findIndex(widget => widget.id === id);
+
+    if(index === 0) {
+      return;
+    }
+
+    const newWidgets = [...this.addedWidgets()]; 
+    [newWidgets[index], newWidgets[index-1]] = [{...newWidgets[index-1]}, {...newWidgets[index]}];
+    this.addedWidgets.set(newWidgets);
+  }
 }
