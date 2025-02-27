@@ -14,5 +14,33 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    --mat-standard-button-toggle-height: 16px;
+
+    > div {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.move-forward-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -5px;
+}
+
+.move-backward-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -5px;
 }
 

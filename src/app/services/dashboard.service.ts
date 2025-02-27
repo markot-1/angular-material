@@ -25,6 +25,8 @@ export class DashboardService {
       id: 1,
       label: 'Subscribers',
       content: SubscribersComponent,
+      rows: 2,
+      columns: 2
     },
     {
       id: 2,
@@ -40,5 +42,38 @@ export class DashboardService {
 
   addWidget(widget: Widget) {
     this.addedWidgets.set([...this.addedWidgets(), {...widget}])
+  }
+
+  updateWidget(id: number, widget: Partial<Widget>) {
+    const index = this.addedWidgets().findIndex(widget => widget.id === id);
+    if(index !== -1) {
+      const newWidgets = [...this.addedWidgets()];
+      newWidgets[index] = {...newWidgets[index], ...widget};
+      this.addedWidgets.set(newWidgets);
+    }
+  }
+
+  moveWidgetToRight(id: number) {
+    const index = this.addedWidgets().findIndex(widget => widget.id === id);
+
+    if(index === this.addedWidgets().length -1) {
+      return;
+    }
+
+    const newWidgets = [...this.addedWidgets()]; 
+    [newWidgets[index], newWidgets[index+1]] = [{...newWidgets[index+1]}, {...newWidgets[index]}];
+    this.addedWidgets.set(newWidgets);
+  }
+
+  moveWidgetToLeft(id: number) {
+    const index = this.addedWidgets().findIndex(widget => widget.id === id);
+
+    if(index === 0) {
+      return;
+    }
+
+    const newWidgets = [...this.addedWidgets()]; 
+    [newWidgets[index], newWidgets[index-1]] = [{...newWidgets[index-1]}, {...newWidgets[index]}];
+    this.addedWidgets.set(newWidgets);
   }
 }
