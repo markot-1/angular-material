@@ -1,17 +1,24 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { Widget } from '../configs/dashboard';
 import { SubscribersComponent } from '../components/pages/dashboard/widgets/subscribers/subscribers.component';
 import { ViewsComponent } from '../components/pages/dashboard/widgets/views/views.component';
 import { WatchTimeComponent } from '../components/pages/dashboard/widgets/watch-time/watch-time.component';
 import { RevenueComponent } from '../components/pages/dashboard/widgets/revenue/revenue.component';
+import { AnalyticsComponent } from '../components/pages/dashboard/widgets/analytics/analytics.component';
 
 @Injectable()
 export class DashboardService {
   constructor() {}
 
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
+      this.fetchWidgets();
+    }
+  }
+
   widgets = signal<Widget[]>([
     {
-      id: 1,
+      id: Math.random(),
       label: 'Subscribers',
       content: SubscribersComponent,
       rows: 1,
@@ -20,7 +27,7 @@ export class DashboardService {
       color: 'whitesmoke'
     },
     {
-      id: 2,
+      id: Math.random(),
       label: 'Views',
       rows: 1,
       columns: 1,
@@ -29,7 +36,7 @@ export class DashboardService {
       color: 'whitesmoke'
     },
     {
-      id: 3,
+      id: Math.random(),
       label: 'Watch Time',
       rows: 1,
       columns: 1,
@@ -38,7 +45,7 @@ export class DashboardService {
       color: 'whitesmoke'
     },
     {
-      id: 4,
+      id: Math.random(),
       label: 'Revenue',
       rows: 1,
       columns: 1,
@@ -46,33 +53,36 @@ export class DashboardService {
       backgroundColor: '#003f5c',
       color: 'whitesmoke'
     },
+    {
+      id: Math.random(),
+      label: 'Analytics',
+      rows: 2,
+      columns: 2,
+      content: AnalyticsComponent,
+    },
   ]);
 
-  addedWidgets = signal<Widget[]>([
-    {
-      id: 1,
-      label: 'Subscribers',
-      content: SubscribersComponent,
-      rows: 1,
-      columns: 1,
-      backgroundColor: '#003f5c',
-      color: 'whitesmoke'
-    },
-    {
-      id: 2,
-      label: 'Views',
-      rows: 1,
-      columns: 1,
-      content: ViewsComponent,
-      backgroundColor: '#003f5c',
-      color: 'whitesmoke'
-    },
-  ]);
+  addedWidgets = signal<Widget[]>([]);
 
   widgetsToAdd = computed(() => {
     const addedIds = this.addedWidgets().map(widget => widget.id);
     return this.widgets().filter(widget => !addedIds.includes(widget.id));
   })
+
+  fetchWidgets() {
+    const widgetsAsString = localStorage.getItem('dashboardWidgets');
+    if(widgetsAsString) {
+      const widgets = JSON.parse(widgetsAsString) as Widget[];
+      widgets.forEach(widget => {
+        const content = this.widgets().find(w => w.id === widget.id)?.content;
+        if(content) {
+          widget.content = content;
+        }
+      });
+
+      this.addedWidgets.set(widgets);
+    }
+  }
 
   addWidget(widget: Widget) {
     this.addedWidgets.set([...this.addedWidgets(), {...widget}])
@@ -114,4 +124,13 @@ export class DashboardService {
   removeWidget(id: number) {
     this.addedWidgets.set(this.addedWidgets().filter(widget => widget.id !== id));
   }
+
+  saveWidgets = effect(() => {
+    const widgetsWithoutContent: Partial<Widget>[] = this.addedWidgets().map(widget => ({...widget}));
+    widgetsWithoutContent.forEach(widget => {
+      delete widget.content;
+    })
+
+    localStorage.setItem('dashboardWidgets', JSON.stringify(widgetsWithoutContent));
+  })
 }
